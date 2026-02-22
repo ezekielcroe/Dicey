@@ -42,11 +42,11 @@ protocol Cloneable {
 
 enum SuccessCondition: String, CaseIterable {
     case none = "No Condition"
-    case meetOrAbove = "Sum >= Target"
-    case meetOrBelow = "Sum <= Target"
-    case above = "Sum > Target"
-    case below = "Sum < Target"
-    case countSpecificFace = "Rolls of Target Face >= Target"
+    case meetOrAbove = "Sum meets/over target"
+    case meetOrBelow = "Sum meets/below target"
+    case above = "Sum over Target"
+    case below = "Sum below Target"
+    case countSpecificFace = "Rolls of Target Face"
 }
 
 struct Triangle: Shape {
@@ -296,7 +296,6 @@ class DiceViewModel: ObservableObject {
     // MARK: - Monte Carlo Simulation Engine
     
     private func triggerCalculation() {
-        // Cancel any ongoing simulation if inputs change rapidly
         calculationTask?.cancel()
         
         guard !dicePool.isEmpty else {
@@ -307,7 +306,6 @@ class DiceViewModel: ObservableObject {
         
         isCalculating = true
         
-        // Capture current state to pass into the detached task
         let poolSnapshot = dicePool.map { $0.clone() }
         let modSnapshot = modifier
         let keepOptSnapshot = keepOption
@@ -316,26 +314,38 @@ class DiceViewModel: ObservableObject {
         let targetNumSnapshot = targetNumber
         let targetFaceSnapshot = targetFaceValue
         
-        // Run simulation off the main thread with high priority
         calculationTask = Task.detached(priority: .userInitiated) {
-            let iterations = 20000 // Higher iterations = more accuracy, slower speed
+            do {
+                try await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
+            } catch {
+                return
+            }
+            
+            if Task.isCancelled { return }
+            
+            let iterations = 20000
             var totalSumAccumulator = 0
             var successesAccumulator = 0
-            
-            // Reusable temporary pool for the loop to reduce allocation overhead
             var tempPool = poolSnapshot
             
             for _ in 0..<iterations {
-                // Ensure task cancellation stops the loop early
                 if Task.isCancelled { return }
                 
-                // 1. Run the exact same logic used for a real roll
                 await self.performRollLogic(on: &tempPool, keepOption: keepOptSnapshot, keepAmount: keepAmtSnapshot)
                 
-                // 2. Calculate results for this iteration
-                let active = tempPool.filter { !$0.isDropped }
-                let iterationSum = active.compactMap({ $0.value }).reduce(0, +) + modSnapshot
-                let iterationFaceCount = active.filter({ $0.value == targetFaceSnapshot }).count
+                var iterationSum = modSnapshot
+                var iterationFaceCount = 0
+                
+                for die in tempPool {
+                    if !die.isDropped {
+                        if let val = die.value {
+                            iterationSum += val
+                            if val == targetFaceSnapshot {
+                                iterationFaceCount += 1
+                            }
+                        }
+                    }
+                }
                 
                 totalSumAccumulator += iterationSum
                 
@@ -346,13 +356,11 @@ class DiceViewModel: ObservableObject {
                 }
             }
             
-            // 3. Calculate final estimates
             let finalAvg = Double(totalSumAccumulator) / Double(iterations)
             let finalProb = condSnapshot == .none ? nil : Double(successesAccumulator) / Double(iterations)
             
             guard !Task.isCancelled else { return }
             
-            // 4. Update UI back on the main thread
             await MainActor.run {
                 self.estimatedAverage = finalAvg
                 self.estimatedProbability = finalProb
