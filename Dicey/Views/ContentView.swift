@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var snapshotName: String = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 // Dice Selection
                 DiceSelectionBar(vm: vm)
@@ -133,6 +133,7 @@ struct ContentView: View {
                     }
                 }
             }
+            
             .alert("Save to Comparison", isPresented: $showingSnapshotAlert) {
                 TextField("Configuration name", text: $snapshotName)
                 Button("Save") {
