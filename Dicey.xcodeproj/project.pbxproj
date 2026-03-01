@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FE70894E2F540C2600274913 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = FE70894D2F540C2600274913 /* PrivacyInfo.xcprivacy */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		FE07B2B22F4AA8F100C07955 /* Dicey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dicey.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE70894D2F540C2600274913 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		FE07B2A92F4AA8F100C07955 = {
 			isa = PBXGroup;
 			children = (
+				FE70894D2F540C2600274913 /* PrivacyInfo.xcprivacy */,
 				FE07B2B42F4AA8F100C07955 /* Dicey */,
 				FE07B2B32F4AA8F100C07955 /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE70894E2F540C2600274913 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
