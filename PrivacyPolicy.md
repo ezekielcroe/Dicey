@@ -4,11 +4,12 @@
 
 ## 1. Introduction
 
-Thank you for choosing Dicey. This application is designed to be a powerful, private tool for Tabletop RPG designers and Game Masters. We believe that your gaming data is your own. This Privacy Policy explains our practices regarding your data.
+I believe that your gaming data is your own. This Privacy Policy explains our practices regarding your data.
 
 ## 2. Data Collection and Usage
 
-**Dicey does not collect, store, transmit, or share any personal data.** * **100% On-Device Processing:** All dice rolls, Monte Carlo simulations, comparison snapshots, and roll history logs are generated and calculated locally on your device. 
+**Dicey does not collect, store, transmit, or share any personal data.** 
+* **100% On-Device Processing:** All dice rolls, Monte Carlo simulations, comparison snapshots, and roll history logs are generated and calculated locally on your device. 
 * **No Accounts:** You do not need to create an account to use Dicey.
 * **No Tracking:** We do not use analytics software, crash tracking, or advertising SDKs.
 * **No External Servers:** Dicey does not connect to any external databases or servers to perform its functions.
@@ -19,7 +20,7 @@ Dicey is available for a one-time upfront purchase on the Apple App Store. Apple
 
 ## 4. Children's Privacy
 
-Because our app does not collect any personal data, it is completely safe for use by children. We do not knowingly collect personal information from anyone, including children under the age of 13.
+We do not knowingly collect personal information from anyone, including children under the age of 13.
 
 ## 5. Changes to This Privacy Policy
 
