@@ -44,37 +44,6 @@ struct DicePoolGrid: View {
                     }
                 }
             }
-
-            // Roll Results
-            if vm.hasRolled && !vm.config.dice.isEmpty {
-                RollResultsBox(vm: vm)
-                    .transition(.opacity)
-            }
-        }
-    }
-}
-
-// MARK: - Roll Results Box
-
-struct RollResultsBox: View {
-    @ObservedObject var vm: DicePoolViewModel
-
-    var body: some View {
-        CardContainer {
-            VStack(spacing: 12) {
-                Text("Roll Results")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                HStack {
-                    StatBox(title: "Sum", value: "\(vm.currentSum)")
-                    if vm.config.condition == .countSpecificFace {
-                        Divider()
-                        StatBox(title: "Face \(vm.config.targetFaceValue)s", value: "\(vm.specificFaceCount)")
-                    }
-                }
-                .padding(.vertical, 5)
-            }
         }
     }
 }

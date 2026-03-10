@@ -71,18 +71,22 @@ struct ReverseCalcView: View {
 
                 Divider().padding(.horizontal)
 
-                // Condition picker
+                // Condition picker — now a dropdown instead of a segmented control
                 CardContainer {
                     VStack(spacing: 12) {
                         SectionLabel(text: "Condition Type", systemImage: "questionmark.circle")
 
-                        Picker("Condition", selection: $vm.reverseCondition) {
-                            Text("Sum ≥ Target").tag(SuccessCondition.meetOrAbove)
-                            Text("Sum ≤ Target").tag(SuccessCondition.meetOrBelow)
-                            Text("Sum > Target").tag(SuccessCondition.above)
-                            Text("Sum < Target").tag(SuccessCondition.below)
+                        HStack {
+                            Text("Condition:")
+                            Spacer()
+                            Picker("Condition", selection: $vm.reverseCondition) {
+                                Text("Sum ≥ Target").tag(SuccessCondition.meetOrAbove)
+                                Text("Sum ≤ Target").tag(SuccessCondition.meetOrBelow)
+                                Text("Sum > Target").tag(SuccessCondition.above)
+                                Text("Sum < Target").tag(SuccessCondition.below)
+                            }
+                            .pickerStyle(MenuPickerStyle())
                         }
-                        .pickerStyle(SegmentedPickerStyle())
                     }
                 }
 

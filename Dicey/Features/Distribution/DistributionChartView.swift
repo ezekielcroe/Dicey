@@ -23,6 +23,12 @@ struct DistributionChartView: View {
     @State private var chartMode: ChartMode = .pdf
     @State private var selectedValue: Int? = nil
 
+    /// Clamps an arbitrary value to the distribution's range so the
+    /// chart overlay / RuleMark never wanders into absurd territory.
+    private func clampedValue(_ raw: Int) -> Int {
+        min(max(raw, distribution.minimum), distribution.maximum)
+    }
+
     var body: some View {
         CardContainer {
             VStack(alignment: .leading, spacing: 8) {
@@ -122,7 +128,7 @@ struct DistributionChartView: View {
                                 if let plotFrame = proxy.plotFrame {
                                     let x = drag.location.x - geo[plotFrame].origin.x
                                     if let val: Int = proxy.value(atX: x) {
-                                        selectedValue = val
+                                        selectedValue = clampedValue(val)
                                     }
                                 }
                             }
@@ -199,7 +205,7 @@ struct DistributionChartView: View {
                                 if let plotFrame = proxy.plotFrame {
                                     let x = drag.location.x - geo[plotFrame].origin.x
                                     if let val: Int = proxy.value(atX: x) {
-                                        selectedValue = val
+                                        selectedValue = clampedValue(val)
                                     }
                                 }
                             }

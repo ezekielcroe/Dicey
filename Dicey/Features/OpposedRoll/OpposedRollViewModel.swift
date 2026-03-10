@@ -20,6 +20,9 @@ class OpposedRollViewModel: ObservableObject {
     @Published var labelA: String = "Pool A"
     @Published var labelB: String = "Pool B"
 
+    /// Which pool is currently focused for receiving dice. Defaults to .a.
+    @Published var focusedPool: Pool = .a
+
     let availableDice = [4, 6, 8, 10, 12, 20, 100]
     private var calculationTask: Task<Void, Never>?
 
@@ -30,6 +33,11 @@ class OpposedRollViewModel: ObservableObject {
         case .a: configA.dice.append(Die(sides: sides))
         case .b: configB.dice.append(Die(sides: sides))
         }
+    }
+
+    /// Adds a die to whichever pool is currently focused.
+    func addDieToFocused(sides: Int) {
+        addDie(to: focusedPool, sides: sides)
     }
 
     func removeDie(from pool: Pool, at index: Int) {

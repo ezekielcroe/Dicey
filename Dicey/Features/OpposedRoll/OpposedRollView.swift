@@ -14,7 +14,7 @@ struct OpposedRollView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                // Shared dice selection bar
+                // Shared dice selection bar — tapping adds to the focused pool
                 diceBar
 
                 // Two pools side by side
@@ -39,7 +39,7 @@ struct OpposedRollView: View {
                 } else if let result = vm.result {
                     ContestResultView(result: result, labelA: vm.labelA, labelB: vm.labelB)
                 } else {
-                    Text("Add dice to both pools to see contest results.")
+                    Text("Add dice to both pools to see contest results. To add dice, tap on one pool and then tap on the dice you want to add.")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .padding()
@@ -56,28 +56,29 @@ struct OpposedRollView: View {
     private var diceBar: some View {
         CardContainer {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Tap a die, then tap a pool to add it")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                HStack(spacing: 4) {
+                    Text("Adding to:")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Text(vm.focusedPool == .a ? vm.labelA : vm.labelB)
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(vm.focusedPool == .a ? .blue : .red)
+                }
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 6) {
                         ForEach(vm.availableDice, id: \.self) { sides in
-                            Menu {
-                                Button("Add to \(vm.labelA)") {
-                                    withAnimation { vm.addDie(to: .a, sides: sides) }
-                                }
-                                Button("Add to \(vm.labelB)") {
-                                    withAnimation { vm.addDie(to: .b, sides: sides) }
-                                }
-                            } label: {
+                            Button(action: {
+                                withAnimation { vm.addDieToFocused(sides: sides) }
+                            }) {
                                 ZStack {
                                     dieShape(sides: sides)
-                                        .fill(Color.purple.opacity(0.15))
+                                        .fill((vm.focusedPool == .a ? Color.blue : Color.red).opacity(0.15))
                                         .frame(width: 46, height: 46)
                                     Text("d\(sides)")
                                         .font(.system(size: 12, weight: .bold))
-                                        .foregroundColor(.purple)
+                                        .foregroundColor(vm.focusedPool == .a ? .blue : .red)
                                         .offset(y: sides == 4 ? 5 : 0)
                                 }
                             }
@@ -96,7 +97,9 @@ struct OpposedRollView: View {
         label: Binding<String>,
         color: Color
     ) -> some View {
-        VStack(spacing: 8) {
+        let isFocused = vm.focusedPool == pool
+
+        return VStack(spacing: 8) {
             // Editable label
             TextField("Name", text: label)
                 .font(.headline)
@@ -158,13 +161,19 @@ struct OpposedRollView: View {
                 .disabled(config.wrappedValue.dice.isEmpty)
         }
         .padding(10)
-        .background(color.opacity(0.05))
+        .background(color.opacity(isFocused ? 0.12 : 0.05))
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(color.opacity(0.2), lineWidth: 1)
+                .stroke(color.opacity(isFocused ? 0.8 : 0.2), lineWidth: isFocused ? 2.5 : 1)
         )
         .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            withAnimation(.easeInOut(duration: 0.15)) {
+                vm.focusedPool = pool
+            }
+        }
     }
 }
 
