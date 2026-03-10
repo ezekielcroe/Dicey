@@ -6,12 +6,17 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FE6FF9102F60118B008C6E1C /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE6FF90F2F60118B008C6E1C /* Launch.storyboard */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		FE6FF90F2F60118B008C6E1C /* Launch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		FE9BEE412F5D056D008C1A1E /* Dicey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dicey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FE9BEE962F5D064A008C1A1E /* Exceptions for "Dicey" folder in "Dicey" target */ = {
+		FE6FF9612F601D5E008C6E1C /* Exceptions for "Dicey" folder in "Dicey" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +29,7 @@
 		FE9BEE432F5D056D008C1A1E /* Dicey */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				FE9BEE962F5D064A008C1A1E /* Exceptions for "Dicey" folder in "Dicey" target */,
+				FE6FF9612F601D5E008C6E1C /* Exceptions for "Dicey" folder in "Dicey" target */,
 			);
 			path = Dicey;
 			sourceTree = "<group>";
@@ -45,6 +50,7 @@
 		FE9BEE382F5D056D008C1A1E = {
 			isa = PBXGroup;
 			children = (
+				FE6FF90F2F60118B008C6E1C /* Launch.storyboard */,
 				FE9BEE432F5D056D008C1A1E /* Dicey */,
 				FE9BEE422F5D056D008C1A1E /* Products */,
 			);
@@ -123,6 +129,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE6FF9102F60118B008C6E1C /* Launch.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +286,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Launch;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -331,6 +339,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Launch;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
